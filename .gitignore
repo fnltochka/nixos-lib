@@ -1,0 +1,24 @@
+# NixOS build results
+result
+result-*
+
+# Vim swap files
+*.swp
+*.swo
+*~
+
+# Emacs backup files
+*~
+\#*\#
+.\#*
+
+# macOS
+.DS_Store
+
+# Editor directories
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
