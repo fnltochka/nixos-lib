@@ -18,8 +18,17 @@
 
   outputs =
     inputs@{ self, ... }:
+    let
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      forAllSystems = inputs.nixpkgs.lib.genAttrs systems;
+    in
     {
       lib = import ./lib { inherit (inputs.nixpkgs) lib; };
+
+      formatter = forAllSystems (system: (import inputs.nixpkgs { inherit system; }).nixfmt-tree);
 
       overlays.default = import ./overlays/default.nix self;
 

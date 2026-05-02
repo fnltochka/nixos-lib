@@ -158,6 +158,7 @@ in
           # Nix
           alejandra
           nixfmt
+          nixfmt-tree
           deadnix
           statix
           sops

@@ -2,20 +2,20 @@
 
 help:
 	@echo "Available targets:"
-	@echo "  make fmt         - format Nix files with nixfmt"
-	@echo "  make fmt-check   - verify formatting with nixfmt"
+	@echo "  make fmt         - format Nix files with nixfmt-tree"
+	@echo "  make fmt-check   - verify formatting with nixfmt-tree"
 	@echo "  make docs        - generate docs from doc-comments"
 	@echo "  make lint        - run deadnix and statix"
 	@echo "  make flake-check - run nix flake check"
 	@echo "  make check       - fmt-check + lint + flake-check"
 
 fmt:
-	@command -v nixfmt >/dev/null || { echo "nixfmt is required"; exit 1; }
-	find . -name "*.nix" -not -path "./.git/*" -print0 | xargs -0 nixfmt
+	@command -v treefmt >/dev/null || { echo "nixfmt-tree is required (provides treefmt)"; exit 1; }
+	treefmt --no-cache .
 
 fmt-check:
-	@command -v nixfmt >/dev/null || { echo "nixfmt is required"; exit 1; }
-	find . -name "*.nix" -not -path "./.git/*" -print0 | xargs -0 nixfmt --check
+	@command -v treefmt >/dev/null || { echo "nixfmt-tree is required (provides treefmt)"; exit 1; }
+	treefmt --fail-on-change --no-cache .
 
 docs:
 	./scripts/generate-docs.sh
