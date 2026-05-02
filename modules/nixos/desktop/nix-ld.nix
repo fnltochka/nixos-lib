@@ -27,6 +27,8 @@ in {
     programs.nix-ld = {
       enable = true;
       libraries = with pkgs; [
+        numactl
+        glibc
         stdenv.cc.cc
         zlib
         openssl

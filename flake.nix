@@ -14,11 +14,6 @@
       url = "github:thiagokokada/nix-alien";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    code-cursor-nix = {
-      url = "github:jacopone/code-cursor-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs @ {self, ...}: {

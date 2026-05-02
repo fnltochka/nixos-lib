@@ -50,7 +50,7 @@ in {
     })
 
     (lib.mkIf (cfg.cursor.enable && cfg.cursor.applyToGdm && gdmEnabled) {
-      programs.dconf.enable = true;
+      programs.dconf.enable = lib.mkDefault true;
 
       programs.dconf.profiles.gdm.databases = [
         {

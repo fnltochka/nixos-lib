@@ -60,8 +60,6 @@ in {
 
       services.xserver.videoDrivers = ["nvidia"];
 
-      boot.kernelPackages = pkgs.unstable.linuxPackages;
-
       environment = {
         sessionVariables.CUDA_PATH = "${pkgs.cudaPackages.cudatoolkit}";
         systemPackages = with pkgs; [

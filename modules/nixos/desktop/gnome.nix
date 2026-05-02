@@ -105,7 +105,7 @@ in {
       ];
     };
 
-    programs.dconf.enable = true;
+    programs.dconf.enable = lib.mkDefault true;
     programs.kdeconnect = {
       enable = true;
       package = pkgs.gnomeExtensions.gsconnect;

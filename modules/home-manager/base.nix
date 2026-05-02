@@ -81,6 +81,8 @@ in {
     };
   };
 
+  dconf.enable = lib.mkDefault osGnomeEnabled;
+
   dconf.settings = lib.mkIf osGnomeEnabled {
     "org/gnome/desktop/peripherals/touchpad" = {
       disable-while-typing = false;

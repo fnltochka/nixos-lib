@@ -2,7 +2,7 @@
 
 This document is automatically generated from doc-comments in the source code using [nixdoc](https://github.com/nix-community/nixdoc).
 
-**Last generated:** 2026-02-19T06:40:37+03:00
+**Last generated:** 2026-05-02T09:06:43+03:00
 
 ---
 
@@ -272,26 +272,6 @@ By default, Sunshine web UI is only accessible from LAN.
 Enable this to allow access from WAN.
 
 # Apps Modules {#apps-modules}
-## Developer Tools
-Enable developer tools package set.
-
-Comprehensive development environment with:
-- Common CLI tools: git, docker, direnv, jq, nix tools, etc.
-- Language toolchains: Rust, Go, JVM (Java/Kotlin), Node.js, Python
-- Development utilities: compilers, debuggers, build tools
-- Optional: Android Studio
-
-Most sub-options have sensible defaults. Enable only what you need.
-
-### Example
-
-```nix
-fnltochkaLib.apps.devtools.enable = true;
-fnltochkaLib.apps.devtools.rust.enable = true;
-fnltochkaLib.apps.devtools.go.enable = true;
-fnltochkaLib.apps.devtools.nodejs.enable = true;
-```
-
 ## Wine
 # Services Modules {#services-modules}
 ## SSH Service

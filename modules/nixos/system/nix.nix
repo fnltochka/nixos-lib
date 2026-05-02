@@ -88,13 +88,7 @@ in {
       };
     })
     (lib.mkIf cfg.registryUnstable {
-      nix.registry.nixpkgs-unstable = {
-        from = {
-          type = "indirect";
-          id = "nixpkgs-unstable";
-        };
-        to = inputs.fnltochkaLib.registryUnstableFlake;
-      };
+      nix.registry.nixpkgs-unstable.flake = inputs.fnltochkaLib.registryUnstableFlake;
     })
   ];
 }

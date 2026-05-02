@@ -84,11 +84,16 @@ in {
         bat
         busybox
         cloud-utils
+        liboping
         curl
         file
         git
+        git-lfs
+        gdb
+        lldb
         gnumake
         jq
+        yq
         nano
         openssl
         ripgrep
@@ -107,8 +112,9 @@ in {
         fd
         fzf
         htop
+        btop
         mc
-        neofetch
+        fastfetch
         tldr
         zoxide
         btop
@@ -120,6 +126,7 @@ in {
         # Diagnostics and networking
         dust
         duf
+        nmap
         ncdu
         strace
         dnsutils
@@ -147,6 +154,7 @@ in {
       environment.systemPackages = with pkgs; [
         # Nix
         alejandra
+        nixfmt
         deadnix
         statix
         sops
