@@ -2,51 +2,58 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.services.ssh;
-in {
+in
+{
   /**
-  Enable OpenSSH service.
+    Enable OpenSSH service.
 
-  Configures OpenSSH server with secure defaults:
-  - PasswordAuthentication = false (key-based only)
-  - PermitRootLogin = no (configurable via permitRootLogin option)
+    Configures OpenSSH server with secure defaults:
+    - PasswordAuthentication = false (key-based only)
+    - PermitRootLogin = no (configurable via permitRootLogin option)
 
-  **Important**: Ensure SSH keys are configured before enabling:
-  ```nix
-  fnltochkaLib.users.sshKeys = ["ssh-ed25519 AAAA... user@example"];
-  ```
+    **Important**: Ensure SSH keys are configured before enabling:
+    ```nix
+    fnltochkaLib.users.sshKeys = ["ssh-ed25519 AAAA... user@example"];
+    ```
 
-  # Example
+    # Example
 
-  ```nix
-  fnltochkaLib.services.ssh.enable = true;
-  fnltochkaLib.services.ssh.permitRootLogin = "prohibit-password";
-  ```
+    ```nix
+    fnltochkaLib.services.ssh.enable = true;
+    fnltochkaLib.services.ssh.permitRootLogin = "prohibit-password";
+    ```
   */
   options = {
     fnltochkaLib.services.ssh = {
       enable = lib.mkEnableOption "OpenSSH service";
 
       /**
-      Permit root login via SSH.
+        Permit root login via SSH.
 
-      Default: "no"
+        Default: "no"
 
-      Controls whether root can log in via SSH. Valid values:
-      - "no": Root login is not permitted
-      - "yes": Root login is permitted (not recommended)
-      - "prohibit-password": Root login is permitted only with key-based authentication
-      - "forced-commands-only": Root login is permitted only for forced commands
+        Controls whether root can log in via SSH. Valid values:
+        - "no": Root login is not permitted
+        - "yes": Root login is permitted (not recommended)
+        - "prohibit-password": Root login is permitted only with key-based authentication
+        - "forced-commands-only": Root login is permitted only for forced commands
 
-      # Example
+        # Example
 
-      ```nix
-      fnltochkaLib.services.ssh.permitRootLogin = "prohibit-password";
-      ```
+        ```nix
+        fnltochkaLib.services.ssh.permitRootLogin = "prohibit-password";
+        ```
       */
       permitRootLogin = lib.mkOption {
-        type = lib.types.enum ["no" "yes" "prohibit-password" "forced-commands-only"];
+        type = lib.types.enum [
+          "no"
+          "yes"
+          "prohibit-password"
+          "forced-commands-only"
+        ];
         default = "prohibit-password";
         description = "Whether to permit root login via SSH";
       };
@@ -65,7 +72,7 @@ in {
     services = {
       openssh = {
         enable = true;
-        ports = [cfg.port];
+        ports = [ cfg.port ];
         settings = {
           PasswordAuthentication = false;
           PermitRootLogin = cfg.permitRootLogin;

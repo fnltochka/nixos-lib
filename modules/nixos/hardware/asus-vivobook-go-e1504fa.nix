@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.asusVivobookGoE1504fa;
-in {
+in
+{
   options.fnltochkaLib.hardware.asusVivobookGoE1504fa.enable =
     lib.mkEnableOption "ASUS Vivobook Go E1504FA hardware profile";
 
@@ -18,7 +20,7 @@ in {
       "sd_mod"
     ];
 
-    boot.kernelModules = ["kvm-amd"];
+    boot.kernelModules = [ "kvm-amd" ];
 
     hardware.enableRedistributableFirmware = lib.mkDefault true;
     hardware.cpu.amd.updateMicrocode = lib.mkDefault true;

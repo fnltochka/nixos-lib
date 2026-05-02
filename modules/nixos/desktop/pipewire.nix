@@ -2,25 +2,27 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.desktop;
-in {
+in
+{
   /**
-  Enable PipeWire audio system.
+    Enable PipeWire audio system.
 
-  Requires: `fnltochkaLib.desktop.enable = true`
+    Requires: `fnltochkaLib.desktop.enable = true`
 
-  Replaces PulseAudio with PipeWire, providing:
-  - ALSA support for legacy applications
-  - PulseAudio compatibility layer
-  - Better audio latency and quality
+    Replaces PulseAudio with PipeWire, providing:
+    - ALSA support for legacy applications
+    - PulseAudio compatibility layer
+    - Better audio latency and quality
 
-  # Example
+    # Example
 
-  ```nix
-  fnltochkaLib.desktop.enable = true;
-  fnltochkaLib.desktop.pipewire.enable = true;
-  ```
+    ```nix
+    fnltochkaLib.desktop.enable = true;
+    fnltochkaLib.desktop.pipewire.enable = true;
+    ```
   */
   options.fnltochkaLib.desktop.pipewire.enable = lib.mkEnableOption "PipeWire audio";
 

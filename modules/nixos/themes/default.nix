@@ -3,10 +3,12 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.themes;
   gdmEnabled = config.services.displayManager.gdm.enable or false;
-in {
+in
+{
   options.fnltochkaLib.themes.cursor = {
     enable = lib.mkEnableOption "system cursor theme (XCURSOR + optional GDM login screen)";
 
@@ -41,7 +43,7 @@ in {
     })
 
     (lib.mkIf cfg.cursor.enable {
-      environment.systemPackages = [cfg.cursor.package];
+      environment.systemPackages = [ cfg.cursor.package ];
 
       environment.variables = {
         XCURSOR_THEME = cfg.cursor.name;

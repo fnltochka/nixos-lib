@@ -2,13 +2,15 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.printing;
-in {
+in
+{
   options.fnltochkaLib.hardware.printing.enable = lib.mkEnableOption "printing support";
   options.fnltochkaLib.hardware.printing.drivers = lib.mkOption {
     type = lib.types.listOf lib.types.package;
-    default = [];
+    default = [ ];
     description = "CUPS driver packages to install when printing is enabled.";
   };
 

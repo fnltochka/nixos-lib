@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.macbookPro2012;
-in {
+in
+{
   options.fnltochkaLib.hardware.macbookPro2012.enable =
     lib.mkEnableOption "MacBook Pro 2012 (MacBookPro9,1) hardware profile";
 
@@ -18,7 +20,7 @@ in {
       "sd_mod"
     ];
 
-    boot.kernelModules = ["kvm-intel"];
+    boot.kernelModules = [ "kvm-intel" ];
 
     hardware.enableRedistributableFirmware = lib.mkDefault true;
     hardware.cpu.intel.updateMicrocode = lib.mkDefault true;

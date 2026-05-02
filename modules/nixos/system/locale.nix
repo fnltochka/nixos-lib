@@ -6,9 +6,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.system.locale;
-in {
+in
+{
   options.fnltochkaLib.system.locale = {
     enable = lib.mkEnableOption "locale and timezone defaults";
 

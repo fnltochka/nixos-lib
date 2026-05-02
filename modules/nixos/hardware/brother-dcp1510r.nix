@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.brotherDcp1510r;
-in {
+in
+{
   options.fnltochkaLib.hardware.brotherDcp1510r.enable =
     lib.mkEnableOption "Brother DCP-1510R (printing + scanning)";
 

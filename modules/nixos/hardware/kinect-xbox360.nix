@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.kinectXbox360;
-in {
+in
+{
   options.fnltochkaLib.hardware.kinectXbox360 = {
     enable = lib.mkEnableOption "Xbox 360 Kinect (libfreenect) support";
 
@@ -29,7 +31,7 @@ in {
         pkgs.kinect-audio-setup
       ];
 
-    users.groups.plugdev = {};
+    users.groups.plugdev = { };
 
     # Keep Kinect USB access available even outside logind-managed ACLs.
     # Known VID/PID pairs:

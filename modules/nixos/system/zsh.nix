@@ -4,24 +4,26 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.system.zsh;
   hmEnabled = config.fnltochkaLib.system.home-manager.enable or false;
-in {
+in
+{
   /**
-  Enable system-wide Zsh defaults.
+    Enable system-wide Zsh defaults.
 
-  Configures Zsh as the default shell:
-  - Enables Zsh program
-  - Sets root user shell to Zsh
-  - Configures zsh with oh-my-zsh for root via Home Manager (if home-manager is enabled)
+    Configures Zsh as the default shell:
+    - Enables Zsh program
+    - Sets root user shell to Zsh
+    - Configures zsh with oh-my-zsh for root via Home Manager (if home-manager is enabled)
 
-  # Example
+    # Example
 
-  ```nix
-  fnltochkaLib.system.zsh.enable = true;
-  fnltochkaLib.system.home-manager.enable = true;
-  ```
+    ```nix
+    fnltochkaLib.system.zsh.enable = true;
+    fnltochkaLib.system.home-manager.enable = true;
+    ```
   */
   options.fnltochkaLib.system.zsh.enable = lib.mkEnableOption "system-wide zsh defaults";
 

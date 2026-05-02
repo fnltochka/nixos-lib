@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.amdgpu;
-in {
+in
+{
   options = {
     fnltochkaLib.hardware.amdgpu = {
       enable = lib.mkEnableOption "AMD GPU defaults";

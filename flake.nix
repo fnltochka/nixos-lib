@@ -16,19 +16,22 @@
     };
   };
 
-  outputs = inputs @ {self, ...}: {
-    lib = import ./lib {inherit (inputs.nixpkgs) lib;};
+  outputs =
+    inputs@{ self, ... }:
+    {
+      lib = import ./lib { inherit (inputs.nixpkgs) lib; };
 
-    overlays.default = import ./overlays/default.nix self;
+      overlays.default = import ./overlays/default.nix self;
 
-    nixosModules.default = import ./modules/nixos;
+      nixosModules.default = import ./modules/nixos;
 
-    registryUnstableFlake = inputs.nixpkgs-unstable;
+      registryUnstableFlake = inputs.nixpkgs-unstable;
 
-    unstablePkgs = system:
-      import inputs.nixpkgs-unstable.outPath {
-        inherit system;
-        config.allowUnfree = true;
-      };
-  };
+      unstablePkgs =
+        system:
+        import inputs.nixpkgs-unstable.outPath {
+          inherit system;
+          config.allowUnfree = true;
+        };
+    };
 }

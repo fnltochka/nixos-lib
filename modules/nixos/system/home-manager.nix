@@ -11,33 +11,35 @@
   inputs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.system.home-manager;
-in {
+in
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];
 
   /**
-  Enable Home Manager integration.
+    Enable Home Manager integration.
 
-  Integrates Home Manager into NixOS configuration:
-  - Enables Home Manager NixOS module
-  - Configures useGlobalPkgs and useUserPackages
-  - Passes inputs and osConfig to Home Manager modules for cross-referencing
+    Integrates Home Manager into NixOS configuration:
+    - Enables Home Manager NixOS module
+    - Configures useGlobalPkgs and useUserPackages
+    - Passes inputs and osConfig to Home Manager modules for cross-referencing
 
-  Required if using `fnltochkaLib.users.accounts.<user>.homeModule` to configure user home directories.
+    Required if using `fnltochkaLib.users.accounts.<user>.homeModule` to configure user home directories.
 
-  # Example
+    # Example
 
-  ```nix
-  fnltochkaLib.system.home-manager.enable = true;
+    ```nix
+    fnltochkaLib.system.home-manager.enable = true;
 
-  fnltochkaLib.users.accounts.user = {
-    enable = true;
-    homeModule = ./home-manager/users/user.nix;
-  };
-  ```
+    fnltochkaLib.users.accounts.user = {
+      enable = true;
+      homeModule = ./home-manager/users/user.nix;
+    };
+    ```
   */
   options.fnltochkaLib.system.home-manager.enable = lib.mkEnableOption "Home Manager integration";
 

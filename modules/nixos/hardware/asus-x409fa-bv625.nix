@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.asusX409faBv625;
-in {
+in
+{
   options.fnltochkaLib.hardware.asusX409faBv625.enable =
     lib.mkEnableOption "ASUS X409FA-BV625 hardware profile";
 
@@ -21,7 +23,7 @@ in {
         "rtsx_usb_sdmmc"
       ];
 
-      kernelModules = ["kvm-intel"];
+      kernelModules = [ "kvm-intel" ];
 
       # Common Realtek 8821CE WiFi module (safe default for this model).
       extraModulePackages = [

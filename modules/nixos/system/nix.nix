@@ -14,30 +14,33 @@
   inputs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.system.nix;
-in {
+in
+{
   /**
-  Enable Nix configuration defaults.
+    Enable Nix configuration defaults.
 
-  Configures essential Nix settings:
-  - Enables flakes and nix-command experimental features
-  - Sets allowUnfree = true for proprietary packages
-  - Automatic garbage collection: weekly, deletes packages older than 30 days
-  - Automatic store optimization: weekly
-  - Applies fnltochkaLib overlays
-  - Configures substituters: cache.nixos.org and nix-community.cachix.org
-  - Optionally: registryUnstable — add nixpkgs-unstable to nix registry (for nix run nixpkgs-unstable#pkg; uses the flake built into fnltochkaLib)
+    Configures essential Nix settings:
+    - Enables flakes and nix-command experimental features
+    - Sets allowUnfree = true for proprietary packages
+    - Automatic garbage collection: weekly, deletes packages older than 30 days
+    - Automatic store optimization: weekly
+    - Applies fnltochkaLib overlays
+    - Configures substituters: cache.nixos.org and nix-community.cachix.org
+    - Optionally: registryUnstable — add nixpkgs-unstable to nix registry (for nix run nixpkgs-unstable#pkg; uses the flake built into fnltochkaLib)
 
-  This is typically required for most configurations using this library.
+    This is typically required for most configurations using this library.
 
-  # Example
+    # Example
 
-  ```nix
-  fnltochkaLib.system.nix.enable = true;
-  ```
+    ```nix
+    fnltochkaLib.system.nix.enable = true;
+    ```
   */
-  options.fnltochkaLib.system.nix.enable = lib.mkEnableOption "Nix defaults (flakes, GC, allowUnfree)";
+  options.fnltochkaLib.system.nix.enable =
+    lib.mkEnableOption "Nix defaults (flakes, GC, allowUnfree)";
 
   options.fnltochkaLib.system.nix.registryUnstable = lib.mkOption {
     default = true;
@@ -55,7 +58,10 @@ in {
 
       nix = {
         settings = {
-          experimental-features = ["nix-command" "flakes"];
+          experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
           auto-optimise-store = true;
           substituters = [
             "https://cache.nixos.org"
@@ -83,7 +89,7 @@ in {
 
         optimise = {
           automatic = true;
-          dates = ["weekly"];
+          dates = [ "weekly" ];
         };
       };
     })

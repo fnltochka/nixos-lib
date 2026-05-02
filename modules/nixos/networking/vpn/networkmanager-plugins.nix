@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.vpn.networkManagerPlugins;
-in {
+in
+{
   options.fnltochkaLib.vpn.networkManagerPlugins.enable =
     lib.mkEnableOption "NetworkManager VPN plugins set";
 

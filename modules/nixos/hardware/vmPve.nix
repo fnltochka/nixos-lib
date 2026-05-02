@@ -6,10 +6,13 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.vmPve;
-in {
-  options.fnltochkaLib.hardware.vmPve.enable = lib.mkEnableOption "Proxmox VE guest (qemu-guest, virtio)";
+in
+{
+  options.fnltochkaLib.hardware.vmPve.enable =
+    lib.mkEnableOption "Proxmox VE guest (qemu-guest, virtio)";
 
   config = lib.mkIf cfg.enable {
     boot = {
@@ -33,11 +36,11 @@ in {
         "virtio_rng"
         "virtio_gpu"
       ];
-      kernelModules = ["kvm-intel"];
-      extraModulePackages = [];
+      kernelModules = [ "kvm-intel" ];
+      extraModulePackages = [ ];
     };
 
-    swapDevices = [];
+    swapDevices = [ ];
 
     services = {
       qemuGuest.enable = true;

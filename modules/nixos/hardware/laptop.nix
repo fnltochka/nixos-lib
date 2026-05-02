@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.hardware.laptop;
-in {
+in
+{
   options.fnltochkaLib.hardware.laptop.enable = lib.mkEnableOption "laptop power + input defaults";
 
   config = lib.mkIf cfg.enable {

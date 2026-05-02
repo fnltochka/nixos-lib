@@ -2,25 +2,27 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.system.networking;
-in {
+in
+{
   /**
-  Enable baseline networking defaults.
+    Enable baseline networking defaults.
 
-  Configures essential networking services:
-  - NetworkManager: Network connection management
-  - Firewall: Basic firewall protection
-  - systemd-resolved: DNS resolution
-  - TCP congestion control: BBR (default)
-  - IP forwarding: Optional (disabled by default)
+    Configures essential networking services:
+    - NetworkManager: Network connection management
+    - Firewall: Basic firewall protection
+    - systemd-resolved: DNS resolution
+    - TCP congestion control: BBR (default)
+    - IP forwarding: Optional (disabled by default)
 
-  # Example
+    # Example
 
-  ```nix
-  fnltochkaLib.system.networking.enable = true;
-  fnltochkaLib.system.networking.ipForwarding.enable = true;
-  ```
+    ```nix
+    fnltochkaLib.system.networking.enable = true;
+    fnltochkaLib.system.networking.ipForwarding.enable = true;
+    ```
   */
   options.fnltochkaLib.system.networking = {
     enable = lib.mkEnableOption "baseline networking defaults";
@@ -58,16 +60,8 @@ in {
     })
     (lib.mkIf (cfg.enable && cfg.ipForwarding.enable) {
       boot.kernel.sysctl = {
-        "net.ipv4.ip_forward" = lib.mkDefault (
-          if cfg.ipForwarding.ipv4
-          then 1
-          else 0
-        );
-        "net.ipv6.conf.all.forwarding" = lib.mkDefault (
-          if cfg.ipForwarding.ipv6
-          then 1
-          else 0
-        );
+        "net.ipv4.ip_forward" = lib.mkDefault (if cfg.ipForwarding.ipv4 then 1 else 0);
+        "net.ipv6.conf.all.forwarding" = lib.mkDefault (if cfg.ipForwarding.ipv6 then 1 else 0);
       };
     })
   ];

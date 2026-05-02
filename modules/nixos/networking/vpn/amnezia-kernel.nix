@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.vpn.amnezia.kernel;
-in {
+in
+{
   options.fnltochkaLib.vpn.amnezia.kernel.enable =
     lib.mkEnableOption "amneziawg kernel module + CLI tools";
 

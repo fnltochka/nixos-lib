@@ -2,22 +2,24 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.virtualisation.docker;
-in {
+in
+{
   /**
-  Enable Docker container runtime.
+    Enable Docker container runtime.
 
-  Configures Docker with:
-  - Docker daemon enabled
-  - Automatic pruning of unused images/containers
-  - docker-compose tool installed
+    Configures Docker with:
+    - Docker daemon enabled
+    - Automatic pruning of unused images/containers
+    - docker-compose tool installed
 
-  # Example
+    # Example
 
-  ```nix
-  fnltochkaLib.virtualisation.docker.enable = true;
-  ```
+    ```nix
+    fnltochkaLib.virtualisation.docker.enable = true;
+    ```
   */
   options.fnltochkaLib.virtualisation.docker.enable = lib.mkEnableOption "Docker";
 

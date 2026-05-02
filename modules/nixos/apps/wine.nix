@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.apps.wine;
-in {
+in
+{
   options.fnltochkaLib.apps.wine = {
     enable = lib.mkEnableOption "Wine (Windows compatibility layer)";
 
@@ -38,17 +40,15 @@ in {
 
     services.pipewire.jack.enable = lib.mkIf cfg.asio.enable (lib.mkDefault true);
 
-    environment.systemPackages =
-      [
-        cfg.package
-        pkgs.winetricks
-      ]
-      ++ lib.optionals cfg.fonts.enable [
-        cfg.fonts.package
-      ]
-      ++ lib.optionals
-      cfg.asio.enable [
-        pkgs.wineasio
-      ];
+    environment.systemPackages = [
+      cfg.package
+      pkgs.winetricks
+    ]
+    ++ lib.optionals cfg.fonts.enable [
+      cfg.fonts.package
+    ]
+    ++ lib.optionals cfg.asio.enable [
+      pkgs.wineasio
+    ];
   };
 }

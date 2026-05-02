@@ -4,47 +4,57 @@
   osConfig,
   pkgs,
   ...
-}: let
-  osLocale = lib.attrByPath ["i18n" "defaultLocale"] "en_US.UTF-8" osConfig;
-  osDesktopEnabled = lib.attrByPath ["fnltochkaLib" "desktop" "enable"] false osConfig;
-  osGnomeEnabled = lib.attrByPath ["fnltochkaLib" "desktop" "gnome" "enable"] false osConfig;
-  osZshEnabled = lib.attrByPath ["fnltochkaLib" "system" "zsh" "enable"] false osConfig;
-  osCursorEnabled = lib.attrByPath ["fnltochkaLib" "themes" "cursor" "enable"] false osConfig;
-  osCursorPackage = lib.attrByPath ["fnltochkaLib" "themes" "cursor" "package"] pkgs.bibata-cursors osConfig;
-  osCursorName = lib.attrByPath ["fnltochkaLib" "themes" "cursor" "name"] "Bibata-Modern-Classic" osConfig;
-  osCursorSize = lib.attrByPath ["fnltochkaLib" "themes" "cursor" "size"] 24 osConfig;
+}:
+let
+  osLocale = lib.attrByPath [ "i18n" "defaultLocale" ] "en_US.UTF-8" osConfig;
+  osDesktopEnabled = lib.attrByPath [ "fnltochkaLib" "desktop" "enable" ] false osConfig;
+  osGnomeEnabled = lib.attrByPath [ "fnltochkaLib" "desktop" "gnome" "enable" ] false osConfig;
+  osZshEnabled = lib.attrByPath [ "fnltochkaLib" "system" "zsh" "enable" ] false osConfig;
+  osCursorEnabled = lib.attrByPath [ "fnltochkaLib" "themes" "cursor" "enable" ] false osConfig;
+  osCursorPackage = lib.attrByPath [
+    "fnltochkaLib"
+    "themes"
+    "cursor"
+    "package"
+  ] pkgs.bibata-cursors osConfig;
+  osCursorName = lib.attrByPath [
+    "fnltochkaLib"
+    "themes"
+    "cursor"
+    "name"
+  ] "Bibata-Modern-Classic" osConfig;
+  osCursorSize = lib.attrByPath [ "fnltochkaLib" "themes" "cursor" "size" ] 24 osConfig;
 
   isRu = lib.hasPrefix "ru" osLocale;
   homeDir = config.home.homeDirectory;
 
   dirs =
-    if isRu
-    then {
-      desktop = "${homeDir}/Рабочий стол";
-      documents = "${homeDir}/Документы";
-      download = "${homeDir}/Загрузки";
-      music = "${homeDir}/Музыка";
-      pictures = "${homeDir}/Изображения";
-      publicShare = "${homeDir}/Общедоступные";
-      templates = "${homeDir}/Шаблоны";
-      videos = "${homeDir}/Видео";
-    }
-    else {
-      desktop = "${homeDir}/Desktop";
-      documents = "${homeDir}/Documents";
-      download = "${homeDir}/Downloads";
-      music = "${homeDir}/Music";
-      pictures = "${homeDir}/Pictures";
-      publicShare = "${homeDir}/Public";
-      templates = "${homeDir}/Templates";
-      videos = "${homeDir}/Videos";
-    };
+    if isRu then
+      {
+        desktop = "${homeDir}/Рабочий стол";
+        documents = "${homeDir}/Документы";
+        download = "${homeDir}/Загрузки";
+        music = "${homeDir}/Музыка";
+        pictures = "${homeDir}/Изображения";
+        publicShare = "${homeDir}/Общедоступные";
+        templates = "${homeDir}/Шаблоны";
+        videos = "${homeDir}/Видео";
+      }
+    else
+      {
+        desktop = "${homeDir}/Desktop";
+        documents = "${homeDir}/Documents";
+        download = "${homeDir}/Downloads";
+        music = "${homeDir}/Music";
+        pictures = "${homeDir}/Pictures";
+        publicShare = "${homeDir}/Public";
+        templates = "${homeDir}/Templates";
+        videos = "${homeDir}/Videos";
+      };
 
-  templateFile =
-    if isRu
-    then "Шаблоны/Текстовый документ.txt"
-    else "Templates/Text Document.txt";
-in {
+  templateFile = if isRu then "Шаблоны/Текстовый документ.txt" else "Templates/Text Document.txt";
+in
+{
   programs.zsh = lib.mkIf osZshEnabled {
     enable = true;
     enableCompletion = true;
@@ -117,9 +127,11 @@ in {
       x11.enable = true;
     };
 
-    activation.updateXdgUserDirs = lib.mkIf osDesktopEnabled (lib.hm.dag.entryAfter ["writeBoundary"] ''
-      ${pkgs.xdg-user-dirs}/bin/xdg-user-dirs-update
-    '');
+    activation.updateXdgUserDirs = lib.mkIf osDesktopEnabled (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${pkgs.xdg-user-dirs}/bin/xdg-user-dirs-update
+      ''
+    );
 
     file.${templateFile} = lib.mkIf osDesktopEnabled {
       text = "";

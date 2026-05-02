@@ -11,27 +11,29 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.fnltochkaLib.system.boot;
-in {
+in
+{
   /**
-  Enable boot configuration defaults.
+    Enable boot configuration defaults.
 
-  Sets up bootloader and kernel:
-  - systemd-boot: UEFI bootloader (default)
-  - EFI variables access: Allows modifying EFI variables (default)
-  - Latest kernel packages: linuxPackages_latest (default)
+    Sets up bootloader and kernel:
+    - systemd-boot: UEFI bootloader (default)
+    - EFI variables access: Allows modifying EFI variables (default)
+    - Latest kernel packages: linuxPackages_latest (default)
 
-  Can be overridden per-host if needed. For example, NVIDIA drivers may require LTS kernel:
-  ```nix
-  boot.kernelPackages = pkgs.linuxPackages;  # LTS kernel
-  ```
+    Can be overridden per-host if needed. For example, NVIDIA drivers may require LTS kernel:
+    ```nix
+    boot.kernelPackages = pkgs.linuxPackages;  # LTS kernel
+    ```
 
-  # Example
+    # Example
 
-  ```nix
-  fnltochkaLib.system.boot.enable = true;
-  ```
+    ```nix
+    fnltochkaLib.system.boot.enable = true;
+    ```
   */
   options.fnltochkaLib.system.boot.enable = lib.mkEnableOption "bootloader + kernel defaults";
 

@@ -2,39 +2,43 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   defaultApplicationPackages = [
     pkgs.gnome-text-editor
     pkgs.loupe
     pkgs.totem
   ];
 
-  mutableMimeAppsList = pkgs.runCommand "mutable-mimeapps.list" {ps = defaultApplicationPackages;} ''
-    export PATH=$PATH:${pkgs.crudini}/bin
+  mutableMimeAppsList =
+    pkgs.runCommand "mutable-mimeapps.list" { ps = defaultApplicationPackages; }
+      ''
+        export PATH=$PATH:${pkgs.crudini}/bin
 
-    printf '%s\n\n%s\n' '[Added Associations]' '[Default Applications]' > "$out"
+        printf '%s\n\n%s\n' '[Added Associations]' '[Default Applications]' > "$out"
 
-    mergeEntry() {
-      local mime="$1"
-      local name="$2"
-      local existing
+        mergeEntry() {
+          local mime="$1"
+          local name="$2"
+          local existing
 
-      existing="$(crudini --get "$out" 'Default Applications' "$mime" 2>/dev/null || true)"
-      local value="$existing''${existing:+;}''$name"
-      crudini --ini-options=nospace --inplace --set "$out" 'Default Applications' "$mime" "$value"
-    }
+          existing="$(crudini --get "$out" 'Default Applications' "$mime" 2>/dev/null || true)"
+          local value="$existing''${existing:+;}''$name"
+          crudini --ini-options=nospace --inplace --set "$out" 'Default Applications' "$mime" "$value"
+        }
 
-    for p in $ps; do
-      for path in "$p"/share/applications/*.desktop; do
-        name="''${path##*/}"
-        mimes="$(crudini --get "$path" 'Desktop Entry' MimeType 2>/dev/null || true)"
-        for mime in ''${mimes//;/ }; do
-          mergeEntry "$mime" "$name"
+        for p in $ps; do
+          for path in "$p"/share/applications/*.desktop; do
+            name="''${path##*/}"
+            mimes="$(crudini --get "$path" 'Desktop Entry' MimeType 2>/dev/null || true)"
+            for mime in ''${mimes//;/ }; do
+              mergeEntry "$mime" "$name"
+            done
+          done
         done
-      done
-    done
-  '';
-in {
+      '';
+in
+{
   xdg = {
     enable = true;
 
@@ -44,7 +48,7 @@ in {
     };
   };
 
-  home.activation.seedMutableMimeApps = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.seedMutableMimeApps = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     config_home="''${XDG_CONFIG_HOME:-$HOME/.config}"
     data_home="''${XDG_DATA_HOME:-$HOME/.local/share}"
     config_mime="$config_home/mimeapps.list"
